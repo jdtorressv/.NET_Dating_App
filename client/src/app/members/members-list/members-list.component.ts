@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './members-list.component.html',
   styleUrls: ['./members-list.component.css']
 })
-export class MembersListComponent implements Onit {
+export class MembersListComponent implements OnInit {
 
   ngOnInit(): void {}
 
