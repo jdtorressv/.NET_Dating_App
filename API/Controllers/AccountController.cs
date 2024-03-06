@@ -28,8 +28,8 @@ public class AccountController : BaseApiController
         var user = new AppUser
         {
             UserName = registerDTO.Username.ToLower(),
-            passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.Password)),
-            passwordSalt = hmac.Key
+            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.Password)),
+            PasswordSalt = hmac.Key
         };
 
         _context.Users.Add(user);
@@ -49,11 +49,11 @@ public class AccountController : BaseApiController
         var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == loginDTO.Username);
         if (user == null) return Unauthorized("Invalid Username");
 
-        using var hmac = new HMACSHA512(user.passwordSalt); // Pass in salt
+        using var hmac = new HMACSHA512(user.PasswordSalt); // Pass in salt
         var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDTO.Password));
         for (int i = 0; i < hash.Length; i++)
         {
-            if (hash[i] != user.passwordHash[i]) return Unauthorized("Incorrect Password");
+            if (hash[i] != user.PasswordHash[i]) return Unauthorized("Incorrect Password");
         }
 
         return new UserDTO
