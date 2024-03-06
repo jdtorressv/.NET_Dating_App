@@ -1,4 +1,6 @@
-﻿namespace API.Entities;
+﻿using API.Extensions;
+
+namespace API.Entities;
 
 public class AppUser // Entities will be converted and inserted into SQLite db via migration
 {
@@ -16,7 +18,11 @@ public class AppUser // Entities will be converted and inserted into SQLite db v
     public string Interests { get; set; }
     public string City { get; set; }
     public string Country { get; set; }
-    public List<Photo> Photos { get; set; } = new List<Photo>([]);
+    public List<Photo> Photos { get; set; } = new List<Photo>([]); // Separate Table; One user can have many photos; 
+    public int GetAge()
+    {
+        return DateOfBirth.CalculateAge();
+    }
 
 
 }
