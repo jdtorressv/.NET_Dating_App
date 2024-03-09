@@ -20,7 +20,10 @@ export class MembersService {
 
   getHttpOptions() {
     const userString = localStorage.getItem('user');
-    if (!userString) return;
+    if (!userString) {
+      console.log("No user string!");
+      return;
+    }
     const user = JSON.parse(userString);
     return {
       headers: new HttpHeaders({
