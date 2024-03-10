@@ -26,5 +26,12 @@
 .member-tabset > .nav-tabs > li.active {
   border-bottom: 4px solid #E95420;
   position: relative;
+
+  .gallery {
+  height: 600px;
+}
+
 } */
+
+
 

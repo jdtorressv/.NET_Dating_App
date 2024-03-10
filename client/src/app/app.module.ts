@@ -22,13 +22,12 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 
 @NgModule({
-  declarations: [
+  declarations: [ // Standalone Angular components don't need to be listed here
     AppComponent,
     NavComponent,
     HomeComponent,
     RegisterComponent,
     MembersListComponent,
-    MembersDetailComponent,
     ListsComponent,
     MessagesComponent,
     TestErrorComponent,
