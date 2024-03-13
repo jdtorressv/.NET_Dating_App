@@ -3,8 +3,8 @@
     <h1>Your profile</h1>
   </div>
   <div class="col-8">
-    <div class="alert alert-info">
-      <p>Information:<strong>You have made changes. Any unsaved changes will be lost!</strong></p>
+    <div class="alert alert-info align-items-center">
+      <p class="mb-0"><strong> You have made changes. Any unsaved changes will be lost!</strong></p>
     </div>
   </div>
   <div class="col-4">
@@ -44,7 +44,7 @@
           name="introduction"
           rows="6"></textarea>
 
-          <h4 class="mt-2">Looking for</h4>
+          <h4 class="mt-2">Looking For</h4>
           <textarea class="form-control"
           [(ngModel)]="member.lookingFor"
           name="lookingFor"
@@ -55,12 +55,12 @@
           [(ngModel)]="member.interests"
           name="interests"
           rows="6"></textarea>
-          <h4 class="mt-2">Location Details:</h4>
+          <h4 class="mt-2">Location Details</h4>
           <div class="d-flex flex-row align-items-center">
             <label for="city">City: </label>
-            <input type="text" [(ngModel)]="member.city" name="city" class="form-control mx-2">
+            <input type="text" [(ngModel)]="member.city" name="city" class="form-control mx-2 mb-2">
             <label for="country">Country: </label>
-            <input type="text" [(ngModel)]="member.country" name="country" class="form-control mx-2">
+            <input type="text" [(ngModel)]="member.country" name="country" class="form-control mx-2 mb-2">
           </div>
         </form>
       </tab>
