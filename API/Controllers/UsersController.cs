@@ -69,6 +69,7 @@ public class UsersController : BaseApiController
         };
 
         if (user.Photos.Count == 0) photo.IsMain = true;
+
         user.Photos.Add(photo);
 
         // Save change to database
