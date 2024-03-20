@@ -46,7 +46,11 @@ public class AccountController : BaseApiController
 
     public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == loginDTO.Username);
+        var user = await _context.Users
+        .Include(p => p.Photos)
+        .FirstOrDefaultAsync(x => x.UserName == loginDTO.Username);
+
+
         if (user == null) return Unauthorized("Invalid Username");
 
         using var hmac = new HMACSHA512(user.PasswordSalt); // Pass in salt
@@ -60,6 +64,7 @@ public class AccountController : BaseApiController
         {
             Username = user.UserName,
             Token = _tokenService.CreateToken(user),
+            PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
         };
     }
 
