@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 export class PhotoEditorComponent implements OnInit {
   @Input() member: Member | undefined;
   uploader: FileUploader | undefined;
-  hasBaseDropzoneOver = false;
+  hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
   user: User | undefined;
 
@@ -27,11 +27,11 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initializeUploader(); 
+    this.initializeUploader();
   }
 
   fileOverBase(event: any) {
-    this.hasBaseDropzoneOver = event;
+    this.hasBaseDropZoneOver = event;
   }
 
   initializeUploader() {
