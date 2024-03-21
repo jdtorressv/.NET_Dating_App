@@ -21,17 +21,17 @@
 
 .member-tabset > .nav-tabs > li.open .dropdown-menu, .member-tabset > .nav-tabs > li:hover .dropdown-menu {
   margin-top: 0px;
-}
+} */
 
 .member-tabset > .nav-tabs > li.active {
-  border-bottom: 4px solid #E95420;
+  border-bottom: 4px solid #6ce0c1;
   position: relative;
 
   .gallery {
   height: 600px;
 }
 
-} */
+}
 
 
 
