@@ -3,7 +3,7 @@ using API.Helpers;
 
 namespace API.Extensions;
 
-public static class HttpExtensions
+public static class HttpExtensions // Extends HttpResponse
 {
     public static void AddPaginationHeader(this HttpResponse response, PaginationHeader header)
     {
