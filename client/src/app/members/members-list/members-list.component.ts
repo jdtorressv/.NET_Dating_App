@@ -34,5 +34,12 @@ export class MembersListComponent implements OnInit {
     })
   }
 
+  pageChanged(event: any) {
+    if (this.pageNumber !== event.page) { // debounce 
+      this.pageNumber = event.page;
+      this.loadMembers();
+    }
+  }
+
 
 }
