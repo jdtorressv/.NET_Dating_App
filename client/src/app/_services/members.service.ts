@@ -12,12 +12,17 @@ import { UserParams } from '../_models/userParams';
 export class MembersService {
   baseUrl = environment.apiUrl;
   members: Member[] = [];
+  memberCache = new Map();
 
   constructor(private http: HttpClient) { }
 
   // Unlike components, services are not destroyed when not in use and can store app state
 
   getMembers(userParams: UserParams) {
+    const response = this.memberCache.get(Object.values(userParams).join("-"));
+
+    if (response) return of(response); // Check Cache
+
     let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
 
     params = params.append('minAge', userParams.minAge);
@@ -25,7 +30,13 @@ export class MembersService {
     params = params.append('gender', userParams.gender);
     params = params.append('orderBy', userParams.orderBy);
 
-    return this.getPaginatedResults<Member[]>(this.baseUrl + 'users', params);  // JWT Interceptor will add token on outgoing request
+    // Will store to cache
+    return this.getPaginatedResults<Member[]>(this.baseUrl + 'users', params).pipe(
+      map(response => {
+        this.memberCache.set(Object.values(userParams).join("-"), response);
+        return response;
+      })
+    );  // JWT Interceptor will add token on outgoing request
   }
 
   private getPaginatedResults<T>(url: string, params: HttpParams) {
