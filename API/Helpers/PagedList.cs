@@ -19,6 +19,7 @@ public class PagedList<T> : List<T> // "Generic" or "Template"
     public int PageSize { get; set; }
     public int TotalCount { get; set; }
 
+    // Creates a page of items 
     public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source,
         int pageNumber, int pageSize)
     {
