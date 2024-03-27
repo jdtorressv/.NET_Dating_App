@@ -21,5 +21,7 @@ public class AppUser // Entities will be converted and inserted into SQLite db v
     public List<Photo> Photos { get; set; } = new List<Photo>([]); // Separate Table; One user can have many photos; 
     public List<UserLike> LikedByUsers { get; set; }
     public List<UserLike> LikedUsers { get; set; }
+    public List<Message> MessagesSent { get; set; }
+    public List<Message> MessagesReceived { get; set; }
 }
 
