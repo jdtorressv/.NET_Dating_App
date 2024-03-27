@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TimeagoModule } from 'ngx-timeago';
+import { MemberMessagesComponent } from 'src/app/_members/member-messages/member-messages.component';
 import { Member } from 'src/app/_models/member';
 import { MembersService } from 'src/app/_services/members.service';
 
@@ -12,7 +13,7 @@ import { MembersService } from 'src/app/_services/members.service';
   standalone: true,
   templateUrl: './members-detail.component.html',
   styleUrls: ['./members-detail.component.css'],
-  imports: [CommonModule, TabsModule, GalleryModule, TimeagoModule]
+  imports: [CommonModule, TabsModule, GalleryModule, TimeagoModule, MemberMessagesComponent]
 })
 export class MembersDetailComponent implements OnInit {
   member: Member | undefined;
