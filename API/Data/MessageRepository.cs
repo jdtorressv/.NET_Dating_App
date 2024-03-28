@@ -43,13 +43,17 @@ public class MessageRepository : IMessageRepository
         switch (messageParams.Container)
         {
             case "Inbox":
-                query = query.Where(u => u.RecipientUsername == messageParams.Username);
+                query = query.Where(u => u.RecipientUsername == messageParams.Username
+                && u.RecipientDeleted == false);
                 break;
             case "Outbox":
-                query = query.Where(u => u.SenderUsername == messageParams.Username);
+                query = query.Where(u => u.SenderUsername == messageParams.Username
+                && u.SenderDeleted == false);
                 break;
             default:
-                query = query.Where(u => u.RecipientUsername == messageParams.Username && u.DateRead == null);
+                query = query.Where(u => u.RecipientUsername == messageParams.Username
+                && u.RecipientDeleted == false
+                && u.DateRead == null);
                 break;
         };
 
@@ -64,9 +68,9 @@ public class MessageRepository : IMessageRepository
             .Include(u => u.Sender).ThenInclude(p => p.Photos)
             .Include(u => u.Recipient).ThenInclude(p => p.Photos)
             .Where(
-                m => m.RecipientUsername == currentUserName &&
+                m => m.RecipientUsername == currentUserName && m.RecipientDeleted == false &&
                 m.SenderUsername == recipientUserName ||
-                m.RecipientUsername == recipientUserName &&
+                m.RecipientUsername == recipientUserName && m.SenderDeleted == false &&
                 m.SenderUsername == currentUserName
             )
             .OrderBy(m => m.MessageSent)
