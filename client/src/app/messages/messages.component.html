@@ -27,7 +27,7 @@
   </div>
 </div>
 
-<div class="row" *ngIf="!messages || messages.length === 0">
+<div class="row" *ngIf="(!messages || messages.length === 0) && !loading">
   <h3>No messages</h3>
 </div>
 
