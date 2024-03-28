@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TabDirective, TabsModule, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { TimeagoModule } from 'ngx-timeago';
 import { MemberMessagesComponent } from 'src/app/_members/member-messages/member-messages.component';
 import { Member } from 'src/app/_models/member';
+import { Message } from 'src/app/_models/message';
 import { MembersService } from 'src/app/_services/members.service';
+import { MessageService } from 'src/app/_services/message.service';
 
 @Component({
   selector: 'app-members-detail',
@@ -16,14 +18,33 @@ import { MembersService } from 'src/app/_services/members.service';
   imports: [CommonModule, TabsModule, GalleryModule, TimeagoModule, MemberMessagesComponent]
 })
 export class MembersDetailComponent implements OnInit {
+  @ViewChild('memberTabs') memberTabs?: TabsetComponent;
   member: Member | undefined;
   images: GalleryItem[] = [];
+  activeTab?: TabDirective;
+  messages: Message[] = [];
 
 
-  constructor(private memberService: MembersService, private route: ActivatedRoute) {}
+  constructor(private memberService: MembersService, private route: ActivatedRoute,
+    private messageService: MessageService) {}
 
   ngOnInit(): void {
     this.loadMember();
+  }
+
+  onTabActivated(data: TabDirective) {
+    this.activeTab = data;
+    if (this.activeTab.heading === 'Messages') {
+      this.loadMessages();
+    }
+  }
+
+  loadMessages() {
+    if (this.member) {
+      this.messageService.getMessageThread(this.member.userName).subscribe({
+        next: messages => this.messages = messages
+      })
+    }
   }
 
   loadMember() {
