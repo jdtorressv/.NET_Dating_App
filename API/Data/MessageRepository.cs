@@ -69,7 +69,7 @@ public class MessageRepository : IMessageRepository
                 m.RecipientUsername == recipientUserName &&
                 m.SenderUsername == currentUserName
             )
-            .OrderByDescending(m => m.MessageSent)
+            .OrderBy(m => m.MessageSent)
             .ToListAsync();
 
         // ToListAsync not needed because we are not going out to database; simply reading from above
