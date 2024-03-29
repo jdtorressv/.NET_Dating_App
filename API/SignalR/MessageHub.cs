@@ -11,12 +11,11 @@ namespace API.SignalR;
 
 [Authorize]
 public class MessageHub : Hub
+
 {
     private readonly IMessageRepository _messageRepository;
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
-
-
 
     public MessageHub(IMessageRepository messageRepository, UserRepository userRepository,
         IMapper mapper)
