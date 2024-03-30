@@ -17,7 +17,7 @@ public class MessageHub : Hub
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
 
-    public MessageHub(IMessageRepository messageRepository, UserRepository userRepository,
+    public MessageHub(IMessageRepository messageRepository, IUserRepository userRepository,
         IMapper mapper)
     {
         _messageRepository = messageRepository;
@@ -27,10 +27,12 @@ public class MessageHub : Hub
 
     public override async Task OnConnectedAsync()
     {
+        Console.WriteLine("We got here!!!");
         var httpContext = Context.GetHttpContext();
         var otherUser = httpContext.Request.Query["user"];
         var groupName = GetGroupName(Context.User.GetUsername(), otherUser);
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+
 
         var messages = await _messageRepository
             .GetMessageThread(Context.User.GetUsername(), otherUser);
