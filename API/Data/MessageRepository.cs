@@ -87,7 +87,8 @@ public class MessageRepository : IMessageRepository
         return await PagedList<MessageDTO>.CreateAsync(messages, messageParams.PageNumber, messageParams.PageSize);
     }
 
-    public async Task<IEnumerable<MessageDTO>> GetMessageThread(string currentUserName, string recipientUserName)
+    public async Task<IEnumerable<MessageDTO>> GetMessageThread(string currentUserName,
+        string recipientUserName)
     {
         var messages = await _context.Messages
             .Include(u => u.Sender).ThenInclude(p => p.Photos)
@@ -101,7 +102,6 @@ public class MessageRepository : IMessageRepository
             .OrderBy(m => m.MessageSent)
             .ToListAsync();
 
-        // ToListAsync not needed because we are not going out to database; simply reading from above
         var unreadMessages = messages.Where(m => m.DateRead == null
             && m.RecipientUsername == currentUserName).ToList();
 
@@ -120,10 +120,5 @@ public class MessageRepository : IMessageRepository
     public void RemoveConnection(Connection connection)
     {
         _context.Connections.Remove(connection);
-    }
-
-    public async Task<bool> SaveAllAsync()
-    {
-        return await _context.SaveChangesAsync() > 0;
     }
 }
