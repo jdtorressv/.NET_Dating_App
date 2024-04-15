@@ -26,8 +26,10 @@ app.UseCors(x => x
     .WithOrigins("https://localhost:4200"));
 
 app.UseAuthentication(); // Who are you? 
-
 app.UseAuthorization(); // What are you allowed to do? 
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.MapControllers();
 app.MapHub<PresenceHub>("hubs/presence");
