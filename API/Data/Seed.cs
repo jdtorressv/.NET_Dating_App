@@ -19,7 +19,6 @@ public class Seed
     {
         if (await userManager.Users.AnyAsync())
         {
-            Console.WriteLine("We already have entries!");
             return;
         }; // If we already have database entries, do not seed, return 
 
